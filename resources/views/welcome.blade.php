@@ -133,64 +133,66 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Post</title>
-</head>
-<body>
 
-    <form action="{{-- {{ route('posts.store') }} --}}" method="POST">
-        @csrf
-        <label for="categoria">Categoría:</label>
-        <select id="categoria" name="categoria">
-          <option value="">Seleccione una opción</option>
-          @foreach($categorias as $categoria)
-            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-          @endforeach
-        </select>
-      
-        <label for="subcategoria">Subcategoría:</label>
-        <select id="subcategoria" name="subcategoria">
-          <option value="">Seleccione una opción</option>
-        </select>
-      
-        <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo">
-      
-        <label for="contenido">Contenido:</label>
-        <textarea id="contenido" name="contenido"></textarea>
-      
-        <button type="submit">Guardar</button>
-      </form>
-
-      <script>
-        $(document).ready(function(){
-          $('#categoria').on('change', function(){
-            var categoriaSeleccionada = $(this).val();
-            if(categoriaSeleccionada){
-              $.ajax({
-                url: '/getSubcategorias/' + categoriaSeleccionada,
-                type: 'GET',
-                dataType: 'json',
-                success: function(data){
-                  $('#subcategoria').empty();
-                  $('#subcategoria').append('<option value="">Seleccione una opción</option>');
-                  $.each(data, function(key, value){
-                    $('#subcategoria').append('<option value="'+ key +'">'+ value +'</option>');
-                  });
-                }
-              });
-            } else {
-              $('#subcategoria').empty();
-              $('#subcategoria').append('<option value="">Seleccione una opción</option>');
-            }
-          });
-        });
-        </script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Post</title>
+    </head>
     
-</body>
+    <body>
+
+        <form action="{{ route('posts.store') }}" method="POST">
+            @csrf
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria">
+            <option value="">Seleccione una opción</option>
+            @foreach($categorias as $categoria)
+                <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+            @endforeach
+            </select>
+        
+            <label for="subcategoria">Subcategoría:</label>
+            <select id="subcategoria" name="subcategoria">
+            <option value="">Seleccione una opción</option>
+            </select>
+        
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo">
+        
+            <label for="contenido">Contenido:</label>
+            <textarea id="contenido" name="contenido"></textarea>
+        
+            <button type="submit">Guardar</button>
+        </form>
+
+        <script>
+            $(document).ready(function(){
+                $('#categoria').on('change', function(){
+                    var categoriaSeleccionada = $(this).val();
+                    if(categoriaSeleccionada){
+                        $.ajax({
+                            url: '/getSubcategorias/' + categoriaSeleccionada,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(data){
+                            $('#subcategoria').empty();
+                            $('#subcategoria').append('<option value="">Seleccione una opción</option>');
+                            $.each(data, function(key, value){
+                                $('#subcategoria').append('<option value="'+ key +'">'+ value +'</option>');
+                            });
+                            }
+                        });
+                    } else {
+                        $('#subcategoria').empty();
+                        $('#subcategoria').append('<option value="">Seleccione una opción</option>');
+                    }
+                });
+            });
+        </script>
+        
+    </body>
 
 
 </html>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/getSubcategorias/{categoria}', 'PostController@getSubcategorias');
+Route::resource('posts', PostController::class)->names('posts');
+// Route::get('/getSubcategorias/{categoria}', [PostController::class, 'getSubcategorias']);
+
+
+Route::get('/categorias', [PostController::class, 'getCategorias']);
+Route::get('/categorias/{categoria}/subcategorias', [PostController::class, 'getSubcategorias']);
+Route::get('posts', [PostController::class, 'index'])->name('posts.index');
+Route::post('/posts', [PostController::class, 'storeOrUpdatePost']);
+Route::put('/posts/{id}', [PostController::class, 'storeOrUpdatePost']);
