@@ -18,6 +18,9 @@ return new class extends Migration
 
             $table->string('titulo');
             $table->string('contenido');
+
+            $table->foreignId('categoria_id')->references('id')->on('categorias');
+            $table->foreignId('subcategoria_id')->references('id')->on('subcategorias');
             
             $table->timestamps();
         });

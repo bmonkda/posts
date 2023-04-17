@@ -16,9 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
-        // return $categorias;
-        return view('posts.index', compact('categorias'));
+        $posts = Post::all();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -28,7 +27,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::all();
+        return view('posts.create', compact('categorias'));
     }
 
     /**
